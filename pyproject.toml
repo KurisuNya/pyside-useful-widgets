@@ -1,0 +1,29 @@
+[project]
+name = "pyside-useful-widgets"
+version = "0.1.0"
+description = "Some useful pyside widgets that I don't want to write twice."
+authors = [
+    { name = "KurisuNya", email = "cuizhu1216@gmail.com" }
+]
+dependencies = [
+    "pyside6",
+]
+readme = "README.md"
+requires-python = ">= 3.9"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "matplotlib",
+    "numpy",
+]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pyside_useful_widgets"]
