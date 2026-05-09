@@ -1,5 +1,7 @@
 import sys
 
+import numpy as np
+from matplotlib.figure import Figure
 from PySide6.QtWidgets import (
     QApplication,
     QMainWindow,
@@ -7,9 +9,6 @@ from PySide6.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
-from matplotlib.figure import Figure
-import numpy as np
-
 from pyside_useful_widgets.matplotlib import FigureWidget
 
 
@@ -57,25 +56,25 @@ class MainWindow(QMainWindow):
         center_widget.setLayout(layout)
         self.setCentralWidget(center_widget)
 
-        self.__figure_widget = FigureWidget()
-        self.__random_2d_button = QPushButton("Random 2D Plot")
-        self.__random_3d_button = QPushButton("Random 3D Plot")
-        self.__clear_button = QPushButton("Clear Figure")
+        self._figure_widget = FigureWidget()
+        self._random_2d_button = QPushButton("Random 2D Plot")
+        self._random_3d_button = QPushButton("Random 3D Plot")
+        self._clear_button = QPushButton("Clear Figure")
 
-        layout.addWidget(self.__figure_widget)
-        layout.addWidget(self.__random_2d_button)
-        layout.addWidget(self.__random_3d_button)
-        layout.addWidget(self.__clear_button)
+        layout.addWidget(self._figure_widget)
+        layout.addWidget(self._random_2d_button)
+        layout.addWidget(self._random_3d_button)
+        layout.addWidget(self._clear_button)
 
         self.__setup_connections()
 
     def __setup_connections(self):
-        on_2d_button_clicked = lambda: self.__figure_widget.set(_random_2d_figure())
-        on_3d_button_clicked = lambda: self.__figure_widget.set(_random_3d_figure())
+        on_2d_button_clicked = lambda: self._figure_widget.set(_random_2d_figure())
+        on_3d_button_clicked = lambda: self._figure_widget.set(_random_3d_figure())
 
-        self.__random_2d_button.clicked.connect(on_2d_button_clicked)
-        self.__random_3d_button.clicked.connect(on_3d_button_clicked)
-        self.__clear_button.clicked.connect(lambda: self.__figure_widget.clear())
+        self._random_2d_button.clicked.connect(on_2d_button_clicked)
+        self._random_3d_button.clicked.connect(on_3d_button_clicked)
+        self._clear_button.clicked.connect(lambda: self._figure_widget.clear())
 
 
 if __name__ == "__main__":

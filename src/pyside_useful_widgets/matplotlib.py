@@ -1,21 +1,22 @@
 from copy import deepcopy
+from typing import Optional
 
-from PySide6.QtCore import QTimer, Qt
-from PySide6.QtGui import QResizeEvent
-from PySide6.QtWidgets import QWidget
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
+from PySide6.QtCore import Qt, QTimer
+from PySide6.QtGui import QResizeEvent
+from PySide6.QtWidgets import QWidget
 
 
 class FigureWidget(FigureCanvas):
-    __move_interval = 3  # ms
+    _move_interval = 3  # ms
 
-    def __init__(self):
+    def __init__(self, parent: Optional[QWidget] = None):
         super().__init__()
-        self.__move_timer = QTimer()
-        self.__move_timer.timeout.connect(lambda: self.__move_timer.stop())
-        self.__move_timer.setSingleShot(True)
-        self.__move_timer.setInterval(self.__move_interval)
+        self._move_timer = QTimer()
+        self._move_timer.timeout.connect(lambda: self._move_timer.stop())
+        self._move_timer.setSingleShot(True)
+        self._move_timer.setInterval(self._move_interval)
 
     def set(self, fig: Figure):
         dpi = self.figure.dpi
@@ -35,9 +36,9 @@ class FigureWidget(FigureCanvas):
 
     def mouseMoveEvent(self, event):
         super().mouseMoveEvent(event)
-        if self.__move_timer.isActive():
+        if self._move_timer.isActive():
             return
-        self.__move_timer.start()
+        self._move_timer.start()
         self.draw_idle()
 
     def mouseReleaseEvent(self, event):

@@ -1,6 +1,8 @@
 import datetime
 import sys
 
+from matplotlib.figure import Figure
+from matplotlib.patches import Rectangle
 from PIL import Image
 from PIL.ImageQt import ImageQt
 from PySide6.QtWidgets import (
@@ -10,9 +12,6 @@ from PySide6.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
-from matplotlib.figure import Figure
-from matplotlib.patches import Rectangle
-
 from pyside_useful_widgets.image import ImageViewWidget
 
 
@@ -59,18 +58,18 @@ class MainWindow(QMainWindow):
         center_widget.setLayout(layout)
         self.setCentralWidget(center_widget)
 
-        self.__image_view_widget = ImageViewWidget()
-        self.__image_view_widget.set_img(ImageQt(_test_image()))
-        self.__refresh_button = QPushButton("Refresh Image")
+        self._image_view_widget = ImageViewWidget()
+        self._image_view_widget.set_img(ImageQt(_test_image()))
+        self._refresh_button = QPushButton("Refresh Image")
 
-        layout.addWidget(self.__image_view_widget)
-        layout.addWidget(self.__refresh_button)
+        layout.addWidget(self._image_view_widget)
+        layout.addWidget(self._refresh_button)
 
         self.__setup_connections()
 
     def __setup_connections(self):
-        self.__refresh_button.clicked.connect(
-            lambda: self.__image_view_widget.update_img(ImageQt(_test_image()))
+        self._refresh_button.clicked.connect(
+            lambda: self._image_view_widget.update_img(ImageQt(_test_image()))
         )
 
 
